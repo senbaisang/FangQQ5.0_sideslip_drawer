@@ -3,14 +3,13 @@ package com.sally.sideslip;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 
-import com.sally.sideslip.views.SideslipMenu;
+import com.sally.sideslip.views.SideSlipMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SideslipMenu mSideslipMenu;
+    private SideSlipMenu mSideslipMenu;
     private ImageView ivToggle;
 
     @Override
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSideslipMenu = (SideslipMenu) findViewById(R.id.id_sideslipmenu);
+        mSideslipMenu = (SideSlipMenu) findViewById(R.id.id_sideslipmenu);
         ivToggle = (ImageView) findViewById(R.id.id_avatar_menu);
         ivToggle.setOnClickListener(this);
     }

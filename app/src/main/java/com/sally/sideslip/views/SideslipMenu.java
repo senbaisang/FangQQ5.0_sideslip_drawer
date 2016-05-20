@@ -1,9 +1,9 @@
 package com.sally.sideslip.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -12,10 +12,12 @@ import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.sally.sideslip.R;
+
 /**
  * Created by sally on 16/5/20.
  */
-public class SideslipMenu extends HorizontalScrollView {
+public class SideSlipMenu extends HorizontalScrollView {
     private static final String TAG = "SideslipMenu";
 
     private LinearLayout mWrapper;
@@ -42,13 +44,17 @@ public class SideslipMenu extends HorizontalScrollView {
      * menu菜单是否打开
      */
     private boolean isOpen;
+    /**
+     * 自定义属性
+     */
+    private int menuRightPadding;
 
 
     /**
      * 在代码中初始化组件时，调用该构造方法
      * @param context
      */
-    public SideslipMenu(Context context) {
+    public SideSlipMenu(Context context) {
         this(context, null);
     }
 
@@ -57,7 +63,7 @@ public class SideslipMenu extends HorizontalScrollView {
      * @param context
      * @param attrs
      */
-    public SideslipMenu(Context context, AttributeSet attrs) {
+    public SideSlipMenu(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -67,8 +73,12 @@ public class SideslipMenu extends HorizontalScrollView {
      * @param attrs
      * @param defStyleAttr
      */
-    public SideslipMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SideSlipMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SideSlipMenu, defStyleAttr, 0);
+        menuRightPadding = (int) typedArray.getDimension(R.styleable.SideSlipMenu_rightPadding, mMenuRightPadding);
+        typedArray.recycle();
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display defaultDisplay = wm.getDefaultDisplay();
@@ -92,7 +102,7 @@ public class SideslipMenu extends HorizontalScrollView {
             mMenu = (ViewGroup) mWrapper.getChildAt(0);
             mContent = (ViewGroup) mWrapper.getChildAt(1);
 
-            mMenuWidth = mMenu.getLayoutParams().width = mScreenWidth - mMenuRightPadding;
+            mMenuWidth = mMenu.getLayoutParams().width = mScreenWidth - menuRightPadding;
             mContent.getLayoutParams().width = mScreenWidth;
 
             onMeasureOnce = true;

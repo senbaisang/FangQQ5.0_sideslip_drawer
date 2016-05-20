@@ -164,6 +164,9 @@ public class SideSlipMenu extends HorizontalScrollView {
         // menu透明度    0.6 ~ 1
         float menuAlpha = 0.6f + 0.4f * (1-radio);
 
+        // menu初始偏移量 : 设置菜单一开始就显露一丁点(20%)
+        ViewHelper.setTranslationX(mMenu, mMenuWidth * radio * 0.8f);
+
         ViewHelper.setPivotX(mContent, 0);
         ViewHelper.setPivotY(mContent, mContent.getHeight() / 2);
         ViewHelper.setScaleX(mContent, contentScale);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sally.sideslip.views.SideslipMenu
+        android:id="@+id/id_sideslipmenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <include layout="@layout/left_menu" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/qq">
+
+               <ImageView
+                   android:id="@+id/id_avatar_menu"
+                   android:layout_marginLeft="20dp"
+                   android:layout_marginTop="20dp"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:background="@drawable/img_3"/>
+
+           </LinearLayout>
+        </LinearLayout>
+
+    </com.sally.sideslip.views.SideslipMenu>
+
+</RelativeLayout>

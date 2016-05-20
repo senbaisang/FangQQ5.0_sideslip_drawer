@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
+import com.nineoldandroids.view.ViewHelper;
 import com.sally.sideslip.R;
 
 /**
@@ -142,6 +144,36 @@ public class SideSlipMenu extends HorizontalScrollView {
         return super.onTouchEvent(ev);
     }
 
+    /**
+     *
+     * @param l     滑动后，x的偏移量
+     * @param t     滑动后，y的偏移量
+     * @param oldl  滑动前，x的偏移量
+     * @param oldt  滑动前，y的偏移量
+     */
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        // menu菜单决定滚动的比例  1 ~ 0
+        float radio = l * 1.0f / mMenuWidth;
+
+        // content移动的比例 1 ~ 0.7
+        float contentScale = 0.7f + 0.3f * radio;
+        // menu移动的比例 0.7 ~ 1
+        float menuScale = 1.0f - 0.3f * radio;
+        // menu透明度    0.6 ~ 1
+        float menuAlpha = 0.6f + 0.4f * (1-radio);
+
+        ViewHelper.setPivotX(mContent, 0);
+        ViewHelper.setPivotY(mContent, mContent.getHeight() / 2);
+        ViewHelper.setScaleX(mContent, contentScale);
+        ViewHelper.setScaleY(mContent, contentScale);
+
+        ViewHelper.setScaleX(mMenu, menuScale);
+        ViewHelper.setScaleY(mMenu, menuScale);
+        ViewHelper.setAlpha(mMenu, menuAlpha);
+    }
+
     private void open() {
         this.smoothScrollTo(0, 0);
     }
@@ -150,6 +182,9 @@ public class SideSlipMenu extends HorizontalScrollView {
         this.smoothScrollTo(mMenuWidth, 0);
     }
 
+    /**
+     * 抽屉开关切换事件
+     */
     public void menuToggle() {
         if(isOpen) {
             off();
